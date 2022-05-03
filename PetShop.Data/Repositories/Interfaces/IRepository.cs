@@ -10,9 +10,9 @@ namespace PetShop.Data.Repositories.Interfaces
     public interface IRepository<T> where T : class
     {
         T Get(int id);
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetAll();
         bool Delete(in T entity);
-        bool Save(in T entity);
+        bool Update(in T entity);
         bool Create(in T entity);
     }
     

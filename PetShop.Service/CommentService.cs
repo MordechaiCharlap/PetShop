@@ -10,32 +10,27 @@ namespace PetShop.Service
 {
     public class CommentService : ICommentService
     {
-        public bool CreateNewCommentByAnimalId(string comment, int id)
+        private readonly ICommentService _commentService;
+        public CommentService(ICommentService commentService)
+        {
+            _commentService = commentService;
+        }
+        public bool CreateNewByAnimalId(string comment, int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteCommentByAnimalId(int id)
+        public bool DeleteById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public string GetCommentByAnimalIdAndCommentId(int animalId, int commentId)
+        public IEnumerable<Comment> GetByAnimalId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Comment> GetCommentsByAnimalId(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Comment> GetCommentsByAnimalName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateCommentByAnimalId(int id, string comment)
+        public bool UpdateById(int id, string comment)
         {
             throw new NotImplementedException();
         }

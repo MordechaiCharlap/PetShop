@@ -1,4 +1,5 @@
-﻿using PetShop.Data.Model;
+﻿using PetShop.Data.Contexts;
+using PetShop.Data.Model;
 using PetShop.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,17 @@ namespace PetShop.Data.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        public Comment Delete(in Comment entity)
+        private readonly PetShopDataContext _context;
+        public CommentRepository(PetShopDataContext context)
+        {
+            _context=context;
+        }
+        public bool Create(in Comment entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(in Comment entity)
         {
             throw new NotImplementedException();
         }
@@ -20,17 +31,17 @@ namespace PetShop.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<Comment> GetAll()
+        public IEnumerable<Comment> GetAll()
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<Comment> GetByAnimalId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Comments.Where(c => c.AnimalId == id);
         }
 
-        public Comment Save(Comment entity)
+        public bool Update(in Comment entity)
         {
             throw new NotImplementedException();
         }

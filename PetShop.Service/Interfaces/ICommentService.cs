@@ -9,11 +9,9 @@ namespace PetShop.Service.Interfaces
 {
     public interface ICommentService
     {
-        IEnumerable<Comment> GetCommentsByAnimalName(string name);
-        IEnumerable<Comment> GetCommentsByAnimalId(int id);
-        bool CreateNewCommentByAnimalId(string comment, int id);
-        bool DeleteCommentByAnimalId(int id);
-        bool UpdateCommentByAnimalId(int id, string comment);
-        string GetCommentByAnimalIdAndCommentId(int animalId, int commentId);
+        IEnumerable<Comment> GetByAnimalId(int id);
+        bool CreateNewByAnimalId(string comment, int id);
+        bool DeleteById(int id);
+        bool UpdateById(int id, string comment);
     }
 }

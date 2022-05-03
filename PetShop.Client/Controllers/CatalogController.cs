@@ -1,13 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.Data.Repositories;
+using PetShop.Service;
+using PetShop.Service.Interfaces;
 
 namespace PetShop.Client.Controllers
 {
     public class CatalogController : Controller
     {
+        private readonly IAnimalService animalService;
+        public CatalogController()
+        {
+            this.animalService = new AnimalService(new AnimalRepository());
+        }
         // GET: CatalogController
         public ActionResult Index()
         {
+            ViewBag.AnimalList = animalService.GetAllAnimals();
             return View();
         }
 

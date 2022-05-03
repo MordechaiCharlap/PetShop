@@ -11,50 +11,39 @@ namespace PetShop.Service
 {
     public class AnimalService : IAnimalService
     {
-        private readonly IAnimalRepository animalRepository;
+        private readonly IAnimalRepository _animalRepository;
         public AnimalService(IAnimalRepository animalRepository)
         {
-            this.animalRepository = animalRepository;
+            _animalRepository = animalRepository;
         }
-        public bool AddNewAnimal(Animal animal)
+        public bool Create(Animal animal)
         {
-            if(animalRepository.Save(animal)) return true;
+            if(_animalRepository.Create(animal)) return true;
             return false;
         }
 
-        public bool CreateAnimal(Animal animal)
+        public bool DeleteById(int id)
         {
-            if(animalRepository.Create(animal)) return true;
-            return false;
-        }
-
-        public bool DeleteAnimalById(int id)
-        {
-            if (animalRepository.Delete(GetAnimalById(id))) return true;
+            if (_animalRepository.Delete(GetById(id))) return true;
             else return false;
         }
 
-        public bool EditAnimalDetails(Animal animal)
+        public bool EditDetails(Animal animal)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Animal> GetAllAnimals()
+        public IEnumerable<Animal> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Animal> GetAllAnimalsByPopularity()
+        public Animal GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Animal GetAnimalById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Animal> GetAnimalsByName(string name)
+        public IEnumerable<Animal> SearchByName(string name)
         {
             throw new NotImplementedException();
         }
