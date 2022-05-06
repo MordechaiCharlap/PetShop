@@ -16,34 +16,39 @@ namespace PetShop.Data.Repositories
         {
             _context = context;
         }
-        public bool Create(in Animal entity)
+        public void Create(Animal animal)
         {
-            throw new NotImplementedException();
+            _context.Add(animal);
+            _context.SaveChanges();
         }
 
-        public bool Delete(in Animal entity)
+        public void Delete(Animal animal)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Animal> Get(string name)
-        {
-            throw new NotImplementedException();
+            _context.Remove(animal);
+            _context.SaveChanges();
         }
 
         public Animal Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Animals.First(animal => animal.AnimalId == id);
         }
 
         public IEnumerable<Animal> GetAll()
         {
-            return _context.Animals;
+            List<Animal> animalList = new List<Animal>();
+            _context.Animals.ToList().ForEach(animal => animalList.Add(animal));
+            return animalList;
         }
 
-        public bool Update(in Animal entity)
+        public bool Update(Animal newAnimal)
         {
-            throw new NotImplementedException();
+            if (Get(newAnimal.AnimalId) != null)
+            {
+                _context.Animals.Update(newAnimal);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

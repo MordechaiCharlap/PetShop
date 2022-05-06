@@ -9,6 +9,5 @@ namespace PetShop.Data.Repositories.Interfaces
 {
     public interface ICommentRepository: IRepository<Comment>
     {
-        IEnumerable<Comment> GetByAnimalId(int id);
     }
 }

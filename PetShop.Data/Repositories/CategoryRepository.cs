@@ -1,4 +1,5 @@
-﻿using PetShop.Data.Model;
+﻿using PetShop.Data.Contexts;
+using PetShop.Data.Model;
 using PetShop.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,40 @@ namespace PetShop.Data.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        public bool Create(in Category entity)
+        private readonly PetShopDataContext _context;
+        public CategoryRepository(PetShopDataContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public void Create(Category category)
+        {
+            _context.Add(category);
         }
 
-        public bool Delete(in Category entity)
+        public void Delete(Category category)
         {
-            throw new NotImplementedException();
+            _context.Remove(category);
         }
 
         public Category Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Categories.First(category=>category.CategoryId==id);
         }
 
         public IEnumerable<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Categories;
         }
 
-        public bool Update(in Category entity)
+        public bool Update(Category category)
         {
-            throw new NotImplementedException();
+            if (Get(category.CategoryId) != null)
+            {
+                _context.Categories.Update(category);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

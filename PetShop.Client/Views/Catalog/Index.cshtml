@@ -1,10 +1,17 @@
-﻿@ViewBag.AnimalList
+﻿@model PetShop.Client.Models.CatalogViewModel
 @{
     ViewData["Title"] = "Catalog";
 }
 
 <h1>Catalog</h1>
 <div>
-    
+    <ul>
+        @foreach(var category in Model.CategoryList)
+        {
+            <li>
+                @category.Name
+            </li>
+        }
+    </ul>
 </div>
 

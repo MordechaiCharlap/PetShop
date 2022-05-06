@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetShop.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace PetShop.Service.Interfaces
 {
-    internal interface ICategoryService
+    public interface ICategoryService:ICRUDService<Category>
     {
+        
     }
 }

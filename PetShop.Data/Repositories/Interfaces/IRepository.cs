@@ -11,9 +11,9 @@ namespace PetShop.Data.Repositories.Interfaces
     {
         T Get(int id);
         IEnumerable<T> GetAll();
-        bool Delete(in T entity);
-        bool Update(in T entity);
-        bool Create(in T entity);
+        void Delete(T entity);
+        bool Update(T entity);
+        void Create(T entity);
     }
     
 }

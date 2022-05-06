@@ -16,36 +16,36 @@ namespace PetShop.Service
         {
             _animalRepository = animalRepository;
         }
-        public bool Create(Animal animal)
+        public void Create(Animal animal)
         {
-            if(_animalRepository.Create(animal)) return true;
+            _animalRepository.Create(animal);
+        }
+
+        public void Delete(Animal animal)
+        {
+            _animalRepository.Delete(animal);
+        }
+
+        public bool Update(Animal animal)
+        {
+            if(_animalRepository.Update(animal)) return true;
             return false;
-        }
-
-        public bool DeleteById(int id)
-        {
-            if (_animalRepository.Delete(GetById(id))) return true;
-            else return false;
-        }
-
-        public bool EditDetails(Animal animal)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Animal> GetAll()
         {
-            throw new NotImplementedException();
+            return _animalRepository.GetAll();
         }
 
-        public Animal GetById(int id)
+        public Animal Get(int id)
         {
-            throw new NotImplementedException();
+            return _animalRepository.Get(id);
         }
-
+        
         public IEnumerable<Animal> SearchByName(string name)
         {
-            throw new NotImplementedException();
+            return _animalRepository.GetAll()
+                .Where(animal => animal.Name.ToLower().Contains(name.ToLower()));
         }
     }
 }

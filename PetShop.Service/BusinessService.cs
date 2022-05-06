@@ -14,12 +14,38 @@ namespace PetShop.Service
 
         private readonly IAnimalRepository _animalRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public BusinessService(IAnimalRepository animalRepository, ICommentRepository commentRepository)
+        public BusinessService(IAnimalRepository animalRepository, ICommentRepository commentRepository, ICategoryRepository categoryRepository)
         {
             _animalRepository = animalRepository;
             _commentRepository = commentRepository;
+            _categoryRepository = categoryRepository;
         }
+
+        public void DeleteAnimal(Animal animal)
+        {
+            //Delete all the animal comments
+            int animalId = animal.AnimalId;
+            _commentRepository.GetAll()
+                .Where(comment => comment.AnimalId == animalId)
+                .ToList()
+                .ForEach(comment => _commentRepository.Delete(comment));
+            //Delete animal
+            _animalRepository.Delete(animal);
+        }
+
+        public IEnumerable<Animal> GetAnimalsByCategory(Category category)
+        {
+            int categoryId = category.CategoryId;
+            List<Animal> animalList = new List<Animal>();
+            _animalRepository.GetAll()
+                .Where(animal => animal.CategoryId == categoryId)
+                .ToList()
+                .ForEach(animal => animalList.Add(animal));
+            return animalList;
+        }
+
         public IEnumerable<Animal> GetTopThreeAnimals()
         {
             List<int> idList = new List<int>();

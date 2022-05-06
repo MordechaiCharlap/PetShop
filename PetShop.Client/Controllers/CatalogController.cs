@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PetShop.Data.Repositories;
+using PetShop.Client.Models;
 using PetShop.Service;
 using PetShop.Service.Interfaces;
 
@@ -9,25 +9,29 @@ namespace PetShop.Client.Controllers
     public class CatalogController : Controller
     {
         private readonly IAnimalService animalService;
+        private readonly ICommentService commentService;
+        private readonly ICategoryService categoryService;
+        private readonly IRepositoryFactory repositoryFactory;
         public CatalogController()
         {
-            this.animalService = new AnimalService(new AnimalRepository());
+            this.repositoryFactory = new RepositoryFactory();
+            this.animalService = new AnimalService(repositoryFactory.CreateAnimalRepo());
+            this.commentService = new CommentService(repositoryFactory.CreateCommentRepo());
+            this.categoryService = new CategoryService(repositoryFactory.CreateCategoryRepo());
         }
         // GET: CatalogController
         public ActionResult Index()
         {
-            ViewBag.AnimalList = animalService.GetAllAnimals();
-            return View();
+            //Show all animals
+
+            return View(new CatalogViewModel(animalService.GetAll(),categoryService.GetAll()));
         }
 
         // GET: CatalogController/Details/5
         public ActionResult Details(int id)
         {
-            return View(id);
-        }
-        public ActionResult Comment(string text)
-        {
-            return View(text);
+            //Show Animal Details
+            return View(new AnimalDetailsViewModel(animalService.Get(id), commentService.GetByAnimalId(id)));
         }
         // GET: CatalogController/Create
         //public ActionResult Create()
